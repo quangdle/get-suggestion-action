@@ -8,17 +8,16 @@ try {
   // `who-to-greet` input defined in action metadata file
   const nameToGreet = core.getInput("who-to-greet");
   const repoPath = core.getInput("main_schema_path");
+  const changedFiles = core.getInput("changed-files");
+
   console.log(`Hello ${nameToGreet}!`);
+
   const time = new Date().toTimeString();
   core.setOutput("time", time);
   // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2);
-  console.log(`The event payload: ${payload}`);
+  // const payload = JSON.stringify(github.context.payload, undefined, 2);
 
-  const buffer = fs.readFileSync(repoPath + "/src/MailIntegrationModal.js");
-  const fileContent = buffer.toString();
-
-  console.log(fileContent);
+  console.log("files changed", changedFiles);
 
   const transformPath = path.resolve(__dirname, "transform.js");
 
