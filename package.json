@@ -19,7 +19,6 @@
   "homepage": "https://github.com/quangdle/get-suggestion-action#readme",
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@actions/github": "^5.1.1",
-    "jscodeshift": "^0.14.0"
+    "@actions/github": "^5.1.1"
   }
 }

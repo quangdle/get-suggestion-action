@@ -1,8 +1,8 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 const fs = require("fs");
-const { run: jscodeshift } = require("jscodeshift/src/Runner");
 const path = require("path");
+const { exec } = require("child_process");
 
 try {
   // `who-to-greet` input defined in action metadata file
@@ -21,17 +21,12 @@ try {
   console.log(fileContent);
 
   const transformPath = path.resolve(__dirname, "transform.js");
-  const paths = [repoPath + "/src/MailIntegrationModal.js"];
-  const options = {
-    dry: true,
-    print: true,
-    verbose: 1,
-  };
 
-  const res = jscodeshift(transformPath, paths, options);
-  res.then((result) => {
-    console.log(result);
-  });
+  exec(
+    `jscodeshift -t ${transformPath} ${
+      repoPath + "/src/MailIntegrationModal.js"
+    }`
+  );
 } catch (error) {
   core.setFailed(error.message);
 }
