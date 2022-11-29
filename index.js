@@ -2,6 +2,7 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const fs = require("fs");
 const { run: jscodeshift } = require("jscodeshift/src/Runner");
+const path = require("path");
 
 try {
   // `who-to-greet` input defined in action metadata file
@@ -19,7 +20,7 @@ try {
 
   console.log(fileContent);
 
-  const transformPath = "./transform.js";
+  const transformPath = path.resolve(__dirname, "transform.js");
   const paths = [repoPath + "/src/MailIntegrationModal.js"];
   const options = {
     dry: true,
