@@ -19,7 +19,7 @@ try {
 
   console.log(fileContent);
 
-  const transformPath = "transform.js";
+  const transformPath = "./transform.js";
   const paths = [repoPath + "/src/MailIntegrationModal.js"];
   const options = {
     dry: true,
