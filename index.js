@@ -1,6 +1,7 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 const fs = require("fs");
+const { run: jscodeshift } = require("jscodeshift/src/Runner");
 
 try {
   // `who-to-greet` input defined in action metadata file
@@ -17,6 +18,19 @@ try {
   const fileContent = buffer.toString();
 
   console.log(fileContent);
+
+  const transformPath = "transform.js";
+  const paths = [repoPath + "/src/MailIntegrationModal.js"];
+  const options = {
+    dry: true,
+    print: true,
+    verbose: 1,
+  };
+
+  const res = jscodeshift(transformPath, paths, options);
+  res.then((result) => {
+    console.log(result);
+  });
 } catch (error) {
   core.setFailed(error.message);
 }
