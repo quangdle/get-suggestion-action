@@ -27,7 +27,7 @@ try {
       repoPath + "/src/MailIntegrationModal.js"
     }`
   );
-  console.log(result);
+  console.log(result.toString());
 } catch (error) {
   core.setFailed(error.message);
 }
