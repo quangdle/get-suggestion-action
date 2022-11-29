@@ -9703,6 +9703,8 @@ try {
   const nameToGreet = core.getInput("who-to-greet");
   const repoPath = core.getInput("main_schema_path");
   const changedFiles = core.getInput("changed-files");
+  const myToken = core.getInput("myToken");
+  const octokit = github.getOctokit(myToken);
 
   console.log(`Hello ${nameToGreet}!`);
 
@@ -9720,7 +9722,13 @@ try {
       repoPath + "/src/MailIntegrationModal.js"
     }`
   );
-  console.log(result.toString());
+
+  octokit.rest.issues.createComment({
+    owner: "octokit",
+    repo: "rest.js",
+    issue_number: 2,
+    body: result.toString(),
+  });
 } catch (error) {
   core.setFailed(error.message);
 }
