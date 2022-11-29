@@ -2,7 +2,7 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const fs = require("fs");
 const path = require("path");
-const { exec } = require("child_process");
+const { execSync } = require("child_process");
 
 try {
   // `who-to-greet` input defined in action metadata file
@@ -22,11 +22,12 @@ try {
 
   const transformPath = path.resolve(__dirname, "transform.js");
 
-  exec(
+  const result = execSync(
     `jscodeshift -t ${transformPath} ${
       repoPath + "/src/MailIntegrationModal.js"
     }`
   );
+  console.log(result);
 } catch (error) {
   core.setFailed(error.message);
 }

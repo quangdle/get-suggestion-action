@@ -9696,7 +9696,7 @@ const core = __nccwpck_require__(1597);
 const github = __nccwpck_require__(566);
 const fs = __nccwpck_require__(7147);
 const path = __nccwpck_require__(1017);
-const { exec } = __nccwpck_require__(2081);
+const { execSync } = __nccwpck_require__(2081);
 
 try {
   // `who-to-greet` input defined in action metadata file
@@ -9716,11 +9716,12 @@ try {
 
   const transformPath = __nccwpck_require__.ab + "transform.js";
 
-  exec(
+  const result = execSync(
     `jscodeshift -t ${transformPath} ${
       repoPath + "/src/MailIntegrationModal.js"
     }`
   );
+  console.log(result);
 } catch (error) {
   core.setFailed(error.message);
 }
