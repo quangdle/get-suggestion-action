@@ -23,11 +23,7 @@ try {
 
   const transformPath = path.resolve(__dirname, "transform.js");
 
-  const result = execSync(
-    `jscodeshift -t ${transformPath} ${
-      repoPath + "/src/MailIntegrationModal.js"
-    }`
-  );
+  const result = execSync(`jscodeshift -t ${transformPath} ${changedFiles}`);
 
   octokit.rest.issues.createComment({
     owner: "octokit",
