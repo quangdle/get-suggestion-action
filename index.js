@@ -13,15 +13,10 @@ try {
   const payload = JSON.stringify(github.context.payload, undefined, 2);
   console.log(`The event payload: ${payload}`);
 
-  const filenames = fs.readdirSync(
-    repoPath +
-      "/src/modules/ats/components/AtsJobDetailPage/MailIntegrationModal.js"
-  );
+  const buffer = fs.readFileSync(repoPath + "/src/MailIntegrationModal.js");
+  const fileContent = buffer.toString();
 
-  console.log("\nCurrent directory filenames:");
-  filenames.forEach((file) => {
-    console.log(file);
-  });
+  console.log(fileContent);
 } catch (error) {
   core.setFailed(error.message);
 }
