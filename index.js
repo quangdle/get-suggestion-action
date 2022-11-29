@@ -9,7 +9,7 @@ try {
   const nameToGreet = core.getInput("who-to-greet");
   const repoPath = core.getInput("main_schema_path");
   const changedFiles = core.getInput("changed-files");
-  const myToken = core.getInput("myToken");
+  const myToken = core.getInput("my-token");
   const octokit = github.getOctokit(myToken);
 
   console.log(`Hello ${nameToGreet}!`);
@@ -23,13 +23,17 @@ try {
 
   const transformPath = path.resolve(__dirname, "transform.js");
 
-  const result = execSync(`jscodeshift -t ${transformPath} ${changedFiles}`);
-
-  octokit.rest.issues.createComment({
-    owner: "octokit",
-    repo: "rest.js",
-    issue_number: 2,
-    body: result.toString(),
+  (changedFiles || []).split(" ").forEach((item) => {
+    const extension = item?.split(".")?.[1];
+    if (extension === "js") {
+      const result = execSync(`jscodeshift -t ${transformPath} ${item}`);
+      octokit.rest.issues.createComment({
+        owner: "octokit",
+        repo: "rest.js",
+        issue_number: 2,
+        body: result.toString(),
+      });
+    }
   });
 } catch (error) {
   core.setFailed(error.message);
