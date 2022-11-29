@@ -9722,8 +9722,8 @@ try {
     if (extension === "js") {
       const result = execSync(`jscodeshift -t ${transformPath} ${item}`);
       octokit.rest.issues.createComment({
-        owner: "octokit",
-        repo: "rest.js",
+        owner: "quangdle",
+        repo: "workflow-testing",
         issue_number: 2,
         body: result.toString(),
       });
