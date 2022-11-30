@@ -28,7 +28,7 @@ try {
     const extension = item?.split(".")?.[1];
     if (extension === "js") {
       const result = execSync(`jscodeshift -t ${transformPath} ${item}`);
-      octokit.rest.issues.createReviewComment({
+      octokit.rest.pulls.createReviewComment({
         owner: "quangdle",
         repo: "workflow-testing",
         pull_number: prNumber,
