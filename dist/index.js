@@ -9706,7 +9706,7 @@ try {
   const myToken = core.getInput("my-token");
   const prNumber = core.getInput("pr-number");
   const octokit = github.getOctokit(myToken);
-
+  const commit = github.context.sha;
   console.log(`Hello ${nameToGreet}!`);
 
   const time = new Date().toTimeString();
