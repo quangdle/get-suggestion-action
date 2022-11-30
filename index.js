@@ -28,15 +28,24 @@ try {
     const extension = item?.split(".")?.[1];
     if (extension === "js") {
       const result = execSync(`jscodeshift -t ${transformPath} ${item}`);
-      octokit.rest.pulls.createReviewComment({
-        owner: "quangdle",
-        repo: "workflow-testing",
-        pull_number: prNumber,
-        body: result.toString(),
-        commit_id: commit,
-        path: item,
-        line: 1,
-      });
+
+      result
+        .toString()
+        .split("\n")
+        .forEach((line) => {
+          if (line.startsWith("REP")) {
+            const [_, relativePath, lineOfCode, value] = line.split(" ");
+            octokit.rest.pulls.createReviewComment({
+              owner: "quangdle",
+              repo: "workflow-testing",
+              pull_number: prNumber,
+              body: `Use palette color ${value}`,
+              commit_id: commit,
+              path: relativePath,
+              line: lineOfCode,
+            });
+          }
+        });
     }
   });
 } catch (error) {
