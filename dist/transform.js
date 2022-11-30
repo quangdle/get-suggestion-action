@@ -1,5 +1,5 @@
 // pattern 1: props.theme.colors.palette.something and theme.colors.palette.something
-const replacePaletteColorPattern1 = (root, j) => {
+const replacePaletteColorPattern1 = (root, j, report, stats) => {
   root.find(j.MemberExpression).forEach((p) => {
     const expression = j(p).toSource();
 
@@ -8,20 +8,24 @@ const replacePaletteColorPattern1 = (root, j) => {
 
     if (!!colorMatch) {
       const colorVal = colorMatch.groups && colorMatch.groups.color;
-      console.log("colorVal: ", colorVal);
+      report(`report: at ${p?.loc?.start?.line} ${colorVal}`);
+      stats(`stats: at ${p?.loc?.start?.line} ${colorVal}`);
+      console.log(`result: at ${p?.loc?.start?.line}`, colorVal);
     }
   });
 };
 
-const replaceThemeReference = (root, j) => {
-  replacePaletteColorPattern1(root, j);
+const replaceThemeReference = (root, j, report, stats) => {
+  replacePaletteColorPattern1(root, j, report, stats);
 };
 
 module.exports = function (fileInfo, api) {
   const j = api.jscodeshift;
+  const report = api.report;
+  const stats = api.stats;
   const root = j(fileInfo.source);
 
-  replaceThemeReference(root, j);
+  replaceThemeReference(root, j, report, stats);
 
   return root.toSource({ quote: "single" });
 };
