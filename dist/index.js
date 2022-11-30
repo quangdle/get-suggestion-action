@@ -9705,6 +9705,7 @@ try {
   const changedFiles = core.getInput("changed-files");
   const myToken = core.getInput("my-token");
   const prNumber = core.getInput("pr-number");
+  const commit = core.getInput("commit");
   const octokit = github.getOctokit(myToken);
 
   console.log(`Hello ${nameToGreet}!`);
@@ -9715,6 +9716,7 @@ try {
   // const payload = JSON.stringify(github.context.payload, undefined, 2);
 
   console.log("files changed", changedFiles);
+  console.log("commit", commit);
 
   const transformPath = __nccwpck_require__.ab + "transform.js";
 
