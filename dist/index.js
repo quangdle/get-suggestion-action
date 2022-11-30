@@ -9738,6 +9738,16 @@ try {
               path: relativePath,
               line: lineOfCode,
             });
+
+            console.log({
+              owner: "quangdle",
+              repo: "workflow-testing",
+              pull_number: prNumber,
+              body: `Use palette color ${value}`,
+              commit_id: commit,
+              path: relativePath,
+              line: lineOfCode,
+            });
           }
         });
     }
