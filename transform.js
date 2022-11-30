@@ -8,9 +8,8 @@ const replacePaletteColorPattern1 = (root, j, report, stats) => {
 
     if (!!colorMatch) {
       const colorVal = colorMatch.groups && colorMatch.groups.color;
-      report(`report: at ${p?.loc?.start?.line} ${colorVal}`);
-      stats(`stats: at ${p?.loc?.start?.line} ${colorVal}`);
-      console.log(`result: at ${p?.loc?.start?.line}`, colorVal);
+      report(`report: at line ${p.value.loc.start.line} ${colorVal}`);
+      // console.log(`result: at ${p.value.loc.start.line}`, colorVal);
     }
   });
 };

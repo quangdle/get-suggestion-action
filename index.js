@@ -10,6 +10,7 @@ try {
   const repoPath = core.getInput("main_schema_path");
   const changedFiles = core.getInput("changed-files");
   const myToken = core.getInput("my-token");
+  const prNumber = core.getInput("pr-number");
   const octokit = github.getOctokit(myToken);
 
   console.log(`Hello ${nameToGreet}!`);
@@ -30,7 +31,7 @@ try {
       octokit.rest.issues.createComment({
         owner: "quangdle",
         repo: "workflow-testing",
-        issue_number: 2,
+        issue_number: prNumber,
         body: result.toString(),
       });
     }
