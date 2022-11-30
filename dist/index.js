@@ -9722,11 +9722,14 @@ try {
     const extension = item?.split(".")?.[1];
     if (extension === "js") {
       const result = execSync(`jscodeshift -t ${transformPath} ${item}`);
-      octokit.rest.issues.createComment({
+      octokit.rest.issues.createReviewComment({
         owner: "quangdle",
         repo: "workflow-testing",
-        issue_number: prNumber,
+        pull_number: prNumber,
         body: result.toString(),
+        commit_id: commit,
+        path: item,
+        line: 1,
       });
     }
   });
