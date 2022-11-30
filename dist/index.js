@@ -9727,6 +9727,7 @@ try {
         .toString()
         .split("\n")
         .forEach((line) => {
+          console.log(line);
           if (line.startsWith("REP")) {
             const [_, relativePath, lineOfCode, value] = line.split(" ");
             octokit.rest.pulls.createReviewComment({
