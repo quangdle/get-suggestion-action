@@ -43,7 +43,7 @@ try {
               body: `Use palette color ${value}`,
               commit_id: commit,
               path: relativePath,
-              line: lineOfCode,
+              line: Number(lineOfCode),
             });
 
             console.log({
